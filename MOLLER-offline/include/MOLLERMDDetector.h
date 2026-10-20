@@ -20,8 +20,11 @@ private:
  std::vector<std::vector<unsigned short>> fWaveforms; //!
  Int_t fExpectedChannels=224,fExpectedSamples=100;
  Int_t fEvnum=0,fNchannels=0;
+ Int_t fTimingReference=0,fIntegrationReference=0,fThresholdSamples=1;
  std::vector<int> fDetid,fRoc,fSlot,fChannel,fFound,fPeak,fFirst,fLast,fClipped,fSaturated;
  std::vector<double> fBaseline,fNoise,fHeight,fTime,fIntegral,fCharge;
+ std::vector<double> fPeakTime,fThresholdTime,fHalfHeightTime,fAppliedThreshold;
+ std::vector<int> fThresholdSample,fThresholdTimeValid,fHalfHeightTimeValid,fTimeValid,fTimeQuality;
  ClassDefOverride(MOLLERMDDetector,0)
 };
 #endif

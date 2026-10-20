@@ -14,6 +14,14 @@ moller.md.bits = 12
 moller.md.threshold_adc = 20.48
 moller.md.threshold_sigma = 5
 
+# Software timing/integration selectors; defaults preserve previous charge extraction.
+# time_ns: 0=peak, 1=interpolated threshold, 2=interpolated half-height.
+moller.md.timing_reference = 0
+# Integration anchor: 0=peak, 1=first sample above threshold (TC).
+moller.md.integration_reference = 0
+# Actual consecutive sample count, NOT the hardware NSAT register encoding.
+moller.md.threshold_samples = 1
+
 # Four integers per row: detector ID, ROC, slot, channel.
 # Rows sorted by segment, ring and detector ID. All 224 channels enabled.
 moller.md.channel_map =
