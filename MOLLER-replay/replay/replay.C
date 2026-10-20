@@ -21,7 +21,7 @@ void replay(const char* input,const char* output="replayed_md.root",Long64_t max
  if(gSystem->Load(TString::Format("%s/lib64/libmoller.so",offline))<0)
   throw std::runtime_error("Cannot load libmoller.so; build/install MOLLER-offline first");
  Int_t error=0;
- gROOT->ProcessLine((".L "+md_quote((std::string(package)+"/replay/replay_moller_md.C").c_str())).c_str(),&error);
+ gROOT->ProcessLine(TString::Format(".L %s/replay/replay_moller_md.C",package).Data(),&error);
  if(error)throw std::runtime_error("Cannot load replay macro");
  std::string call="replay_moller_md("+md_quote(input)+","+md_quote(output)+","+std::to_string(maxevents)+");";
  gROOT->ProcessLine(call.c_str(),&error);

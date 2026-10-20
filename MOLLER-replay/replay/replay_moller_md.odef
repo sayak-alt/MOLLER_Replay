@@ -20,3 +20,17 @@ variable moller.md.integral
 variable moller.md.charge_pc
 
 variable moller.md.nchannels
+
+# Timing update
+variable moller.md.peak_time_ns
+variable moller.md.threshold_time_ns
+variable moller.md.half_height_time_ns
+variable moller.md.applied_threshold_adc
+variable moller.md.threshold_sample
+variable moller.md.threshold_time_valid
+variable moller.md.half_height_time_valid
+variable moller.md.time_valid
+variable moller.md.time_quality
+variable moller.md.timing_reference
+variable moller.md.integration_reference
+variable moller.md.threshold_samples
