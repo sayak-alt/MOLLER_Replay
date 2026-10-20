@@ -29,6 +29,8 @@ public:
     double Qpe_C = 1.6e-13;
 
     bool store_waveforms = false;
+    bool readout_all_channels = false; // Enable in .dat for full SM readout
+    std::string calibration_file; // Optional complete 28-module calibration CSV
     std::string detector_map_file; // Optional CSV electronics map
     std::string lut_directory = "showermax_tables";
     bool legacy_pion_names = true;
@@ -57,6 +59,10 @@ private:
     std::string segment_group, orientation, subdivision;
     bool enabled;
   };
+  struct Calibration { double pedestal_mean, pedestal_sigma, gain; };
+  void LoadCalibration(const std::string& filename);
+  std::unordered_map<int,Calibration> fCalibration;
+  std::vector<double> pedestal_mean_adc, pedestal_sigma_adc, pmt_gain, qpe_c;
   void LoadDetectorMap(const std::string& filename);
   void AppendMapping(int did);
   std::unordered_map<int,ChannelInfo> fDetectorMap;
@@ -76,7 +82,7 @@ private:
   std::vector<int> npe_poiss;
 
   std::vector<int> adc_int;
-  std::vector<int> adc_int_pedsub;
+  std::vector<double> adc_int_pedsub;
 
   std::vector<int> hit_detid;
   std::vector<double> hit_time;
@@ -90,7 +96,7 @@ private:
   std::vector<unsigned short> wf_adc;
 
   double QLSB() const;
-  double ChargeInSampleFromOnePE(double t0_ns, double t1_ns, double t2_ns) const;
+  double ChargeInSampleFromOnePE(double t0_ns, double t1_ns, double t2_ns, double charge_pe) const;
 };
 
 #endif
