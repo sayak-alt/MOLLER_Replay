@@ -1,0 +1,22 @@
+variable md.input.nchannels
+variable md.input.nsamples
+variable md.input.adcsum
+variable moller.md.evnum
+variable moller.md.detid
+variable moller.md.roc
+variable moller.md.slot
+variable moller.md.channel
+variable moller.md.found
+variable moller.md.peak_sample
+variable moller.md.window_start
+variable moller.md.window_end
+variable moller.md.clipped
+variable moller.md.saturated
+variable moller.md.baseline
+variable moller.md.noise
+variable moller.md.height
+variable moller.md.time_ns
+variable moller.md.integral
+variable moller.md.charge_pc
+
+variable moller.md.nchannels
