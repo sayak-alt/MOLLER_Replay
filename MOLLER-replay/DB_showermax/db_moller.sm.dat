@@ -1,0 +1,55 @@
+# MOLLER Shower-Max sparse-data replay database. Values must match digitiser electronics.
+# Simulation truth stays in showermax_digi; no truth used to reconstruct pulses.
+# Replay estimates baseline/noise from waveform samples, without truth constants.
+moller.sm.nchannels = 28
+moller.sm.nsamples = 100
+moller.sm.baseline_samples = 10
+moller.sm.NSB = 5
+moller.sm.NSA = 22
+moller.sm.dt_ns = 4
+moller.sm.gate_start_ns = -170
+moller.sm.range_v = 1
+moller.sm.resistance_ohm = 50
+moller.sm.bits = 12
+moller.sm.threshold_adc = 20.48
+moller.sm.threshold_sigma = 5
+
+# Software timing/integration selectors; defaults preserve previous charge extraction.
+# time_ns: 0=peak, 1=interpolated threshold, 2=interpolated half-height.
+moller.sm.timing_reference = 2
+# Integration anchor: 0=peak, 1=first sample above threshold (TC).
+moller.sm.integration_reference = 1
+# Actual consecutive sample count, NOT the hardware NSAT register encoding.
+moller.sm.threshold_samples = 1
+
+
+# detid ROC slot channel; must agree with the companion CSV
+moller.sm.channel_map =
+ 73001 2 3 0
+ 73002 2 3 1
+ 73003 2 3 2
+ 73004 2 3 3
+ 73005 2 3 4
+ 73006 2 3 5
+ 73007 2 3 6
+ 73008 2 3 7
+ 73009 2 3 8
+ 73010 2 3 9
+ 73011 2 3 10
+ 73012 2 3 11
+ 73013 2 3 12
+ 73014 2 3 13
+ 73015 2 3 14
+ 73016 2 3 15
+ 73017 2 4 0
+ 73018 2 4 1
+ 73019 2 4 2
+ 73020 2 4 3
+ 73021 2 4 4
+ 73022 2 4 5
+ 73023 2 4 6
+ 73024 2 4 7
+ 73025 2 4 8
+ 73026 2 4 9
+ 73027 2 4 10
+ 73028 2 4 11
