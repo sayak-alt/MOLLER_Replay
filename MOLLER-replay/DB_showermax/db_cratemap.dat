@@ -1,0 +1,3 @@
+# MOLLER simulation-only crate map.
+# No hardware modules are declared here.
+# MOLLERShowerMaxDecoder creates slot data directly from ROOT waveforms.

@@ -34,7 +34,16 @@ MOLLERShowerMaxDecoder::MOLLERShowerMaxDecoder(){
  gHaVars->DefineVariables(vars,"","MOLLERShowerMaxDecoder");}
 }
 MOLLERShowerMaxDecoder::~MOLLERShowerMaxDecoder(){if(gHaVars)gHaVars->RemoveRegexp("sm.input.*");}
+//Int_t MOLLERShowerMaxDecoder::LoadEvent(const UInt_t* ptr){
 Int_t MOLLERShowerMaxDecoder::LoadEvent(const UInt_t* ptr){
+ if(!ptr)return HED_FATAL;
+
+ // Initialise Podd's crate-map state before creating slot data.
+ if(first_decode) {
+   const Int_t status = Init();
+   if(status != HED_OK)
+     return status;
+ }
  if(!ptr)return HED_FATAL;
  buffer=ptr;
  const auto& event=*reinterpret_cast<const MOLLERShowerMaxReader::Event*>(ptr);

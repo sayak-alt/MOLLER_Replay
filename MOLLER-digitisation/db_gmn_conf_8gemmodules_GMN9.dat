@@ -14,8 +14,10 @@ Qpe_showermax 1.6e-13
 
 # Shower-max response settings; enable using detectors_list
  lut_directory_showermax showermax_tables
+ calibration_file_showermax SM_channel_calibration.csv
  legacy_pion_names_showermax 1
  detector_map_showermax MOLLER_showermax_electronics_map.csv
+ readout_all_channels_showermax 1
 
 detector_map_mollerpmt MOLLER_detector_electronics_map.csv
 calibration_file_mollerpmt MD_channel_calibration.csv
@@ -32,7 +34,7 @@ TriggerJitter 3.0
 #list of detectors to digitize
 #detectors_list hcal bbps bbsh grinch bbhodo mollergem 
 #detectors_list mollergem mollerpmt
- detectors_list mollerpmt
+ detectors_list mollerpmt showermax
 
 store_waveforms_mollerpmt 1
 

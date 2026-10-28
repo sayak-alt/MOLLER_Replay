@@ -347,6 +347,18 @@ if(skey=="enable_showermax") {
 if(skey=="lut_directory_showermax") { showerMaxDirectory = ((TObjString*)(*tokens)[1])->GetString().Data(); }
 if(skey=="detector_map_showermax") { showerMaxMap = ((TObjString*)(*tokens)[1])->GetString().Data(); }
 if(skey=="legacy_pion_names_showermax") { showerMaxLegacyPions = std::stoi(((TObjString*)(*tokens)[1])->GetString().Data()) != 0; }
+
+if(skey=="readout_all_channels_showermax") {
+  showerMaxCfg.readout_all_channels =
+    ((TObjString*)(*tokens)[1])->GetString().Atoi() != 0;
+}
+
+if(skey=="calibration_file_showermax") {
+  showerMaxCfg.calibration_file =
+    ((TObjString*)(*tokens)[1])->GetString().Data();
+}
+
+
 if(skey=="readout_all_channels_mollerpmt") { pmtcfg.readout_all_channels = ((TObjString*)(*tokens)[1])->GetString().Atoi()!=0; }
 if(skey=="calibration_file_mollerpmt") { pmtcfg.calibration_file = ((TObjString*)(*tokens)[1])->GetString().Data(); }
 if(skey=="detector_map_mollerpmt") { pmtcfg.detector_map_file = ((TObjString*)(*tokens)[1])->GetString().Data(); }

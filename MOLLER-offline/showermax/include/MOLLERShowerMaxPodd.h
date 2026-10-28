@@ -30,7 +30,10 @@ class MOLLERShowerMaxDecoder : public THaEvData {
 public:
  MOLLERShowerMaxDecoder();
  ~MOLLERShowerMaxDecoder() override;
- Int_t Init() override {return HED_OK;}
+// Int_t Init() override {return HED_OK;}
+Int_t Init() override {
+  return THaEvData::Init();
+}
  Int_t LoadEvent(const UInt_t* ptr) override;
 private:
  std::set<UInt_t> fSMSlots; //!
