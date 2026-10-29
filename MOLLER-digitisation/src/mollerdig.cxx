@@ -23,6 +23,7 @@
 #include "GEMSimDigitizer.h"
 #include "MOLLERPMTDigitizer.h"
 #include "MOLLERShowerMaxDigitizer.h"
+#include "MOLLERTriggerScintillatorDigitizer.h"
 #include "remollGenericDetectorHit.hh"
 #include "remollGenericDetectorSum.hh"
 
@@ -109,6 +110,9 @@ bool showerMaxLegacyPions = true;
 double rateNormalizationDivisor = 1.0;
 MOLLERShowerMaxDigitizer showerMaxDigi;
 MOLLERShowerMaxDigitizer::Config showerMaxCfg;
+bool doTriggerScintillator=false;
+MOLLERTriggerScintillatorDigitizer triggerScintillator;
+MOLLERTriggerScintillatorDigitizer::Config triggerScintillatorCfg;
 
 Int_t nparam_mollerpmt_read = 0;
 const int nparam_mollerpmt = 17;
@@ -154,6 +158,14 @@ const int nparam_mollerpmt = 17;
 	    detectors_list.push_back(sdet);
 	  }
 	}
+
+        if(skey=="ts_det_ids") {
+          triggerScintillatorCfg.detector_ids.clear();
+          for(int i=1;i<ntokens;++i)
+            triggerScintillatorCfg.detector_ids.push_back(std::stoi(((TObjString*)(*tokens)[i])->GetString().Data()));
+        }
+        if(skey=="ts_pe_per_mev")
+          triggerScintillatorCfg.pe_per_mev=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
 
 	//GEMs
 	if(skey=="NPlanes_mollergem"){
@@ -397,6 +409,7 @@ if(skey=="dEdx_mollerpmt"){ pmtcfg.dEdx_mev_per_cm = ((TObjString*)(*tokens)[1])
   cout << " declaring detectors " << endl;
   for(int k = 0; k<detectors_list.size(); k++){
     cout << "detector: " << detectors_list[k].Data() << "... " << endl;
+    if(detectors_list[k] == "trigscint") doTriggerScintillator=true;
     if(detectors_list[k] == "showermax") {
       doShowerMax = true;
     }
@@ -474,6 +487,11 @@ if(detectors_list[k] == "mollerpmt") {
   std::chrono::time_point<std::chrono::steady_clock> start = 
     std::chrono::steady_clock::now();
   
+  if(doTriggerScintillator) {
+    std::cerr << "TS prototype: parallel-world sum.edep is not validated against physical scintillator scoring" << std::endl;
+    triggerScintillator.SetConfig(triggerScintillatorCfg);
+    triggerScintillator.SetRandomSeed(Rseed);
+  }
   if(doShowerMax) {
     showerMaxCfg.lut_directory = showerMaxDirectory;
     showerMaxCfg.legacy_pion_names = showerMaxLegacyPions;
@@ -508,6 +526,13 @@ if(detectors_list[k] == "mollerpmt") {
     if(doShowerMax) {
       T_showermax = new TTree("showermax_digi", "Shower-max PMT/FADC output");
       showerMaxDigi.BookBranches(T_showermax);
+    }
+    TTree* T_trigger_scint = nullptr;
+    if(doTriggerScintillator) {
+      if(!C_s || !C_s->GetBranch("hit") || !C_s->GetBranch("sum"))
+        throw std::runtime_error("Trigger scintillator requires REMOLL hit and sum branches");
+      T_trigger_scint = new TTree("trigscint_digi", "Trigger scintillator PE response");
+      triggerScintillator.BookBranches(T_trigger_scint);
     }
     remoll_tree *T_s = new remoll_tree();
     T_s->Init(C_s);
@@ -642,6 +667,17 @@ if(doPMT && T_pmt) {
         showerMaxDigi.DigitizeEvent(smhits);
         T_showermax->Fill();
       }
+      if(T_trigger_scint) {
+        if(!T_s->hit || !T_s->sum)
+          throw std::runtime_error("Cannot read trigger scintillator hit/sum data");
+        std::vector<MOLLERTriggerScintillatorDigitizer::Hit> tsHits;
+        std::vector<MOLLERTriggerScintillatorDigitizer::Deposit> tsSums;
+        for(const auto& h:*T_s->hit) tsHits.push_back({h.det,h.id,h.pid,h.t,h.edep});
+        for(const auto& d:*T_s->sum) tsSums.push_back({d.det,d.vid,d.edep});
+        triggerScintillator.SetEventNumber(static_cast<Long64_t>(NEventsTotal));
+        triggerScintillator.DigitizeEvent(tsHits,tsSums);
+        T_trigger_scint->Fill();
+      }
       T_s->FillDigBranches();
       T_out->Fill();
       }
@@ -653,6 +689,7 @@ if(doPMT && T_pmt) {
     }    
 */
     //.............//
+if(T_trigger_scint) T_trigger_scint->Write();
 if(T_showermax) T_showermax->Write();
 if(T_pmt) {
     cout << "Writing PMT tree with entries = "

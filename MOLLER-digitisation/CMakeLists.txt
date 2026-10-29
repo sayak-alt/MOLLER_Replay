@@ -55,6 +55,7 @@ set(SOURCES
     src/MOLLERLookupResponse.cxx
     src/MOLLERShowerMaxLookupResponse.cxx
     src/MOLLERShowerMaxDigitizer.cxx
+    src/MOLLERTriggerScintillatorDigitizer.cxx
 )
 
 add_executable(mollerdig ${SOURCES})
@@ -77,3 +78,13 @@ set_target_properties(mollerdig PROPERTIES
     INSTALL_RPATH "${REMOLL_DIR}/lib64;${Geant4_DIR}/../../..;${ROOT_LIBRARY_DIR}"
 
 )
+
+# Independent TS response/I/O checks; does not exercise MD/SM.
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(test_trigger_scintillator
+        tests/test_trigger_scintillator.cxx
+        src/MOLLERTriggerScintillatorDigitizer.cxx)
+    target_link_libraries(test_trigger_scintillator ${ROOT_LIBRARIES})
+    add_test(NAME trigger_scintillator_response COMMAND test_trigger_scintillator)
+endif()
