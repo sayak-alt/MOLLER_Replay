@@ -167,6 +167,28 @@ const int nparam_mollerpmt = 17;
         if(skey=="ts_pe_per_mev")
           triggerScintillatorCfg.pe_per_mev=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
 
+        // Independent TS waveform configuration (no changes to MD/SM).
+        if(skey=="ts_enable_electronics") triggerScintillatorCfg.enable_electronics=((TObjString*)(*tokens)[1])->GetString().Atoi()!=0;
+        if(skey=="ts_readout_all_channels") triggerScintillatorCfg.readout_all_channels=((TObjString*)(*tokens)[1])->GetString().Atoi()!=0;
+        if(skey=="ts_store_waveforms") triggerScintillatorCfg.store_waveforms=((TObjString*)(*tokens)[1])->GetString().Atoi()!=0;
+        if(skey=="ts_store_pe_times") triggerScintillatorCfg.store_pe_times=((TObjString*)(*tokens)[1])->GetString().Atoi()!=0;
+        if(skey=="ts_calibration_file") triggerScintillatorCfg.calibration_file=((TObjString*)(*tokens)[1])->GetString().Data();
+        if(skey=="ts_detector_map_file") triggerScintillatorCfg.detector_map_file=((TObjString*)(*tokens)[1])->GetString().Data();
+        if(skey=="ts_gate_ns") triggerScintillatorCfg.gate_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_dt_ns") triggerScintillatorCfg.dt_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_gate_offset_ns") triggerScintillatorCfg.t_offset_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_range_v") triggerScintillatorCfg.v_range_volt=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_resistance_ohm") triggerScintillatorCfg.R_ohm=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_pedestal_mean_adc") triggerScintillatorCfg.pedestal_mean=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_pedestal_sigma_adc") triggerScintillatorCfg.pedestal_sigma=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_pmt_gain") triggerScintillatorCfg.pmt_gain=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_scint_decay_ns") triggerScintillatorCfg.scint_decay_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_pulse_tau_ns") triggerScintillatorCfg.pulse_tau_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_sigma_time_ns") triggerScintillatorCfg.sigma_time_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_transit_time_ns") triggerScintillatorCfg.transit_time_ns=std::stod(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_nbits") triggerScintillatorCfg.nbits=std::stoi(((TObjString*)(*tokens)[1])->GetString().Data());
+        if(skey=="ts_hit_time_mode") triggerScintillatorCfg.hit_time_mode=std::stoi(((TObjString*)(*tokens)[1])->GetString().Data());
+
 	//GEMs
 	if(skey=="NPlanes_mollergem"){
 	  cout << "reading " << skey.Data() << endl;

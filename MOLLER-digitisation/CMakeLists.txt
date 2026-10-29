@@ -88,3 +88,12 @@ if(BUILD_TESTING)
     target_link_libraries(test_trigger_scintillator ${ROOT_LIBRARIES})
     add_test(NAME trigger_scintillator_response COMMAND test_trigger_scintillator)
 endif()
+
+if(BUILD_TESTING)
+    add_executable(test_trigger_scintillator_waveforms
+        tests/test_trigger_scintillator_waveforms.cxx
+        src/MOLLERTriggerScintillatorDigitizer.cxx)
+    target_link_libraries(test_trigger_scintillator_waveforms ${ROOT_LIBRARIES})
+    add_test(NAME trigger_scintillator_waveforms
+        COMMAND test_trigger_scintillator_waveforms ${CMAKE_CURRENT_SOURCE_DIR})
+endif()

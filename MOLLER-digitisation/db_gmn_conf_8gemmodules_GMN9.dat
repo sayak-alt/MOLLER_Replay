@@ -27,6 +27,29 @@ pe_method_mollerpmt 0
 lut_directory_mollerpmt look_up_table
 lut_ring_mollerpmt 0
 
+
+#TS parameters
+
+# Trigger scintillator PE response
+ts_det_ids 400 401 402 403 404 405 406 407 408 409 410 411 412 413
+ts_pe_per_mev 125
+
+ts_enable_electronics 1
+ts_readout_all_channels 1
+ts_store_waveforms 1
+ts_store_pe_times 0
+
+ts_calibration_file TS_channel_calibration.csv
+ts_detector_map_file MOLLER_trigscint_electronics_map.csv
+
+ts_scint_decay_ns 2.1
+ts_pulse_tau_ns 10
+ts_sigma_time_ns 1
+ts_transit_time_ns 0
+ts_hit_time_mode 0
+
+
+
 #Random seed
 Rseed 0
 #global trigger jitter for all detectors in ns
@@ -34,7 +57,7 @@ TriggerJitter 3.0
 #list of detectors to digitize
 #detectors_list hcal bbps bbsh grinch bbhodo mollergem 
 #detectors_list mollergem mollerpmt
- detectors_list mollerpmt showermax
+ detectors_list mollerpmt showermax trigscint
 
 store_waveforms_mollerpmt 1
 

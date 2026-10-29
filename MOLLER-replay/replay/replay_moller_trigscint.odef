@@ -1,0 +1,44 @@
+variable ts.input.nwaveform_channels
+variable ts.input.nsamples
+variable ts.input.adcsum
+variable moller.ts.evnum
+variable moller.ts.detid
+variable moller.ts.roc
+variable moller.ts.slot
+variable moller.ts.channel
+variable moller.ts.found
+variable moller.ts.peak_sample
+variable moller.ts.window_start
+variable moller.ts.window_end
+variable moller.ts.clipped
+variable moller.ts.saturated
+variable moller.ts.baseline
+variable moller.ts.noise
+variable moller.ts.height
+variable moller.ts.time_ns
+variable moller.ts.integral
+variable moller.ts.charge_pc
+
+variable moller.ts.nchannels
+
+# Timing update
+variable moller.ts.peak_time_ns
+variable moller.ts.threshold_time_ns
+variable moller.ts.half_height_time_ns
+variable moller.ts.applied_threshold_adc
+variable moller.ts.threshold_sample
+variable moller.ts.threshold_time_valid
+variable moller.ts.half_height_time_valid
+variable moller.ts.time_valid
+variable moller.ts.time_quality
+variable moller.ts.timing_reference
+variable moller.ts.integration_reference
+variable moller.ts.threshold_samples
+
+variable ts.input.nresponse_channels
+variable moller.ts.nreadout
+variable moller.ts.readout
+variable moller.ts.copyid
+variable moller.ts.plane
+variable moller.ts.sector
+variable moller.ts.raw_integral
